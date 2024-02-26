@@ -1,0 +1,196 @@
+.home_wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+}
+
+/* Groups List */
+
+.groupmain{
+    margin-top: 17px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 310px;
+    overflow-y: scroll;
+}
+
+.groupmain::-webkit-scrollbar {
+    width: 5px;
+}
+
+.groupmain::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.groupmain:hover::-webkit-scrollbar-thumb {
+    background-color: #B8C0C2;
+  }
+
+.groupitem{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    column-gap: 14px;
+}
+
+.groupitem:last-child{
+    border-bottom: none;
+}
+
+.groupimg{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: yellowgreen;
+    overflow: hidden;
+}
+
+.groupimg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.groupname h4{
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+p{
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(77, 77, 77, 0.75);
+}
+
+.groupinfo{
+    flex-basis: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.join_btn{
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    background: #5F35F5;
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.remove{
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    background: #8e8e8e;
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+/* friends List */
+
+.friendimg{
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: paleturquoise;
+    overflow: hidden;
+}
+
+.friendimg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.friendinfo{
+    flex-basis: 78%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.request{
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 300px;
+}
+
+/* User List */
+
+.addbtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #5F35F5;
+    padding: 8px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+}
+
+
+.addbtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #5F35F5;
+    padding: 8px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+}
+
+.cancel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #8e8e8e;
+    padding: 8px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+}
+
+
+.friend{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(228, 230, 235);
+    padding: 8px;
+    border-radius: 5px;
+    color: rgb(28, 30, 33);
+    cursor: pointer;
+    border: none;
+    font-weight: 700;
+}
+
+.friend svg{
+    margin-right: 5px;
+}
+
+
+.button_group{
+    display: flex;
+    gap: 15px;
+}

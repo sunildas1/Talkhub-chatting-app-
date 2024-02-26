@@ -1,0 +1,119 @@
+.form_main{
+    position: relative;
+}
+
+.login_heading{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: #03014C;
+    margin-bottom: 30px;
+}
+
+.provider_login{
+    border: 1px solid #03014C;
+    border-radius: 8px;
+    padding: 20px 30px;
+    display: inline-flex;
+    align-items: center;
+    column-gap: 10px;
+    cursor: pointer;
+}
+
+.google_icon{
+    font-size: 20px;
+}
+
+.provider_login span{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #03014C;
+}
+
+.login_btn{
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    width: 369px !important;
+    border-radius: 8px !important;
+    padding: 20px 0 !important;
+    background: #5F35F5 !important;
+    text-transform: none !important;
+    margin-top: 18px !important;
+}
+
+.singup{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #03014C;
+    margin-top: 35px;
+    padding-left: 10px;
+}
+
+.singup a{
+    color: #EA6C00;
+    font-weight: 700;
+    padding-left: 5px;
+}
+
+.singup a:hover{
+    text-decoration: underline;
+}
+
+.hide_show_icon{
+    position: absolute;
+    bottom: 135px;
+    right: 10px;
+}
+
+.hide_show_icon .eye{
+    font-size: 26px;
+    opacity: 0.4;
+    cursor: pointer;
+}
+
+.forgot{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #03014C;
+    text-align: center;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.forgot span:hover{
+    text-decoration: underline;
+    color: #2d28bb;
+}
+
+.forgot_box{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+.forgot_box h2{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #03014C;
+    margin-bottom: 20px;
+}
+
+.close{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.emailpasserror{
+    color: red;
+    text-align: center;
+    margin-top: 30px;
+}
