@@ -4,6 +4,7 @@ import './home.css'
 import Image from '../../utilities/Image'
 import { useSelector, useDispatch } from 'react-redux'
 import { getDatabase, ref, onValue, set, push, remove } from "firebase/database";
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 
 const Friends = () => {
@@ -58,6 +59,7 @@ const Friends = () => {
 
   return (
     <>
+    <ToastContainer />
      <Groupcard cardtitle="Friends">
         <div className='groupmain'>
           {friendList && friendList.map((item,index)=>(

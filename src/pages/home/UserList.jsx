@@ -7,12 +7,13 @@ import Skeleton from 'react-loading-skeleton'
 import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import { FaUserCheck } from "react-icons/fa6";
-
+import { FaRegHourglassHalf } from "react-icons/fa6";
 
 const UserList = () => {
     const [userList, setUserList] = useState()
     const [fRequest, setfRequest] = useState([])
     const [friendList, setFriendList] = useState([])
+    const [fRequestCheck , setfRequestCheck] = useState([])
     const db = getDatabase();
     const data = useSelector((state) => state.loginData.value)
 
@@ -32,18 +33,28 @@ const UserList = () => {
   },[])
 
 // Add friend request data //
+
   useEffect(()=>{
     const fRequestRef = ref(db, 'friend_request');
     onValue(fRequestRef, (snapshot) => {
       let arr = []
+      let ArreyCheck = []
       snapshot.forEach((item)=>{
+        if(item.val().reciverid == data.uid){
+          ArreyCheck.push(item.val().senderid + item.val().reciverid)
+        }
         if(data.uid == item.val().senderid){
            arr.push(item.val().senderid + item.val().reciverid)
         }
     })
       setfRequest(arr)
+      setfRequestCheck(ArreyCheck)
     });
   },[])
+
+
+//  console.log(fRequest);
+ console.log(fRequestCheck);
 
   //  Friend list data //
 
@@ -64,7 +75,7 @@ const UserList = () => {
 
   let hanldeCancel = (cancelinfo) =>{
     if(cancelinfo.senderid == cancelinfo.reciverid){
-      remove(ref(db, "friend_request")).then(()=>{  
+      remove(ref(db, "friend_request/" + cancelinfo.id)).then(()=>{  
         toast.error('Friend Request Remove !', {
             position: "top-right",
             autoClose: 1000,
@@ -82,17 +93,16 @@ const UserList = () => {
 
   //Write operation //
 
-  let hanldeFRequest = (frequest) =>{
-    console.log(frequest);
-    set(push(ref(db, 'friend_request')), {
+  let hanldeFRequest = (frequestinfo) =>{
+    set(ref(db, 'friend_request/' + frequestinfo.id), {
         senderid: data.uid,
         sendername: data.displayName,
         senderemail: data.email,
         senderphoto: data.photoURL,
-        reciverid: frequest.id,
-        recivername: frequest.username,
-        reciveremail: frequest.email,
-        reciverphoto: frequest.profile_photo
+        reciverid: frequestinfo.id,
+        recivername: frequestinfo.username,
+        reciveremail: frequestinfo.email,
+        reciverphoto: frequestinfo.profile_photo
     }).then(()=>{
         toast.success('Friend Request Send...', {
             position: "top-right",
@@ -135,6 +145,10 @@ const UserList = () => {
                 friendList.includes(item.id + data.uid) || friendList.includes(data.uid + item.id)
                 ?
                 <button  className='friend'><FaUserCheck /> Friends</button>
+                :
+                fRequestCheck.includes(item.id + data.uid)
+                ?
+                <button  className='requested'><FaRegHourglassHalf />Requested</button>
                 :
                 <button onClick={()=>hanldeFRequest(item)} className='addbtn'>Add friend</button>
                 }

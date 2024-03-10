@@ -4,7 +4,7 @@ import './home.css'
 import Image from '../../utilities/Image'
 import { useSelector, useDispatch } from 'react-redux'
 import { getDatabase, ref, onValue, set, push, remove } from "firebase/database";
-// import { ToastContainer, toast, Bounce } from 'react-toastify';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 const BlokedUser = () => {
     const [blockList, setBlockList] = useState([])
@@ -26,10 +26,26 @@ const BlokedUser = () => {
       });
     },[])
 
+  let handleunblock = (unblockinfo) =>{
+    console.log(unblockinfo);
+      remove(ref(db, "block/" + unblockinfo.id)).then(()=>{  
+        toast.success('Unblock your frined !', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+        });
+      })
+    }
 
   return (
-    <>
-      {/* <ToastContainer /> */}
+  <>
+  <ToastContainer />
     <Groupcard cardtitle="Blocked Users">
         <div className='groupmain'>
             {blockList && blockList.map((item,index)=>(
@@ -42,12 +58,11 @@ const BlokedUser = () => {
                     <h4>{item.blockname}</h4>
                     <p>Today, 8:56pm</p>
                     </div>
-                    <button className='join_btn'>Unblock</button>
+                    <button onClick={()=>handleunblock(item)} className='join_btn'>Unblock</button>
                 </div>
             </div>
-            ))
-
-            }
+           ))
+          }
             
         </div>
      </Groupcard>

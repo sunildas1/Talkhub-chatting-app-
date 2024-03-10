@@ -7,18 +7,18 @@ import Sidebar from './Sidebar'
 
 const RootLayout = () => {
   return (
-    <Box sx={{ width: '100%' }}>
-      <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
-        <Grid xs={1.5}>
-           <Sidebar/>
+    <>
+      <Box sx={{ width: '100%' }}>
+        <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
+          <Grid xs={1.5}>
+            <Sidebar/>
+          </Grid>
+          <Grid xs={10.5}>
+              <Outlet/>
+          </Grid>
         </Grid>
-        <Grid xs={10.5}>
-          <div className='outletbox'>
-            <Outlet/>
-          </div>
-        </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </>
   )
 }
 

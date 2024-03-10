@@ -2,6 +2,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: 22px;
+    padding: 35px 23px 35px 0px;
+    margin-left: 50px;
 }
 
 /* Groups List */
@@ -68,7 +70,7 @@ p{
 }
 
 .groupinfo{
-    flex-basis: 80%;
+    flex-basis: 75%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -186,6 +188,23 @@ p{
 }
 
 .friend svg{
+    margin-right: 5px;
+}
+
+.requested{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(197 213 255);
+    padding: 8px;
+    border-radius: 5px;
+    color: rgb(28, 30, 33);
+    cursor: not-allowed;
+    border: none;
+    font-weight: 700;
+}
+
+.requested svg{
     margin-right: 5px;
 }
 
