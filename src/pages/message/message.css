@@ -99,13 +99,31 @@
     color: rgb(115, 115, 115);
 }
 
+.main_msg::-webkit-scrollbar {
+    width: 5px;
+}
+
+.main_msg::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+
+.main_msg::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #888;
+}
+
 .main_msg{
-    margin: 30px;
+    padding: 30px;
+    margin: 5px;
+    height: 680px;
+    overflow-y: scroll;
 }
 
 .send_msg{
     display: flex;
     justify-content: flex-end;
+    margin: 10px 0;
+    margin-left: 500px;
 }
 
 
@@ -113,19 +131,23 @@
     display: inline-block;
     background-color: rgb(55, 151, 240);
     color: #fff;
-    border-radius: 50px;
+    border-radius: 30px;
     padding: 15px 20px;
     font-size: 14px;
+}
+
+.recive_msg{
+    margin-right: 500px;
 }
 
 .recive_msg p{
     display: inline-block;
     background-color: rgb(239, 239, 239);
     color: #000;
-    border-radius: 50px;
+    border-radius: 30px;
     padding: 15px 20px;
     font-size: 14px;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 .msg_footer{

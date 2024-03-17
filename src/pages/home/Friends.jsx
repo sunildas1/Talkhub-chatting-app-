@@ -30,15 +30,42 @@ const Friends = () => {
     // Block operation //
 
     let handleBlock = (blockinfo) =>{
+      data.uid == blockinfo.whosendid
+      ?
       set(push(ref(db, "block")),{
-        whoblockid: data.uid,
-        whoblockname: data.displayName,
-        whoblockemail: data.email,
-        whoblockphoto: data.photoURL,
         blockid: blockinfo.whoreciverid,
         blockname: blockinfo.whorecivername,
         blockemail: blockinfo.whoreciveremail,
         blockphoto: blockinfo.whoreciverphoto,
+        whoblockid: data.uid,
+        whoblockname: data.displayName,
+        whoblockemail: data.email,
+        whoblockphoto: data.photoURL,
+      }).then(()=>{
+         remove(ref(db, "friends/" + blockinfo.id)).then(()=>{  
+          toast.error('Your friend is blocked !', {
+              position: "top-right",
+              autoClose: 1000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              transition: Bounce,
+          });
+        })
+      })
+      :
+      set(push(ref(db, "block")),{
+        blockid: data.uid,
+        blockname: data.displayName,
+        blockemail: data.email,
+        blockphoto: data.photoURL,
+        whoblockid: blockinfo.whoreciverid,
+        whoblockname: blockinfo.whorecivername,
+        whoblockemail: blockinfo.whoreciveremail,
+        whoblockphoto: blockinfo.whoreciverphoto,
       }).then(()=>{
          remove(ref(db, "friends/" + blockinfo.id)).then(()=>{  
           toast.error('Your friend is blocked !', {

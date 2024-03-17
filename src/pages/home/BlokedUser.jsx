@@ -27,19 +27,29 @@ const BlokedUser = () => {
     },[])
 
   let handleunblock = (unblockinfo) =>{
-    console.log(unblockinfo);
-      remove(ref(db, "block/" + unblockinfo.id)).then(()=>{  
-        toast.success('Unblock your frined !', {
-            position: "top-right",
-            autoClose: 1000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            transition: Bounce,
-        });
+        set(ref(db, 'friends'), {
+          senderid: unblockinfo.blockid,
+          sendername: unblockinfo.blockname,
+          senderemail: unblockinfo.blockemail,
+          senderphoto: unblockinfo.blockphoto,
+          reciverid: data.uid,
+          recivername: data.displayName,
+          reciveremail: data.email,
+          reciverphoto: data.photoURL
+      }).then(()=>{
+        remove(ref(db, 'block/' + unblockinfo.id)).then(()=>{
+          toast.success('Friend Request Send...', {
+              position: "top-right",
+              autoClose: 1000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              transition: Bounce,
+          });
+        })
       })
     }
 
