@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getDatabase, ref, onValue, set, push, remove } from "firebase/database";
 import Image from '../../utilities/Image'
@@ -9,18 +9,22 @@ import { BsMic } from "react-icons/bs";
 import { TbPhoto } from "react-icons/tb";
 import { GoPlusCircle } from "react-icons/go";
 import { active_user } from '../../slices/activeUserSlice';
+import EmojiPicker from 'emoji-picker-react';
+import ScrollToBottom from 'react-scroll-to-bottom';
+
 
 const Message = () => {
 
   const [friendList, setFriendList] = useState([])
   const [msgText, setMsgText] = useState("")
   const [allMessage, setAllMessage] = useState([])
+  const [showemoji, setshowemoji] = useState(false)
   const db = getDatabase();
   const data = useSelector((state) => state.loginData.value)
   const activechat = useSelector((state) => state.activeuserdata.value)
   const dispatch = useDispatch()
+  const emojiref = useRef()
 
-  console.log(activechat);
 
   // Friend reade operation //
 
@@ -43,7 +47,7 @@ const Message = () => {
 
   // Message write operation // 
 
-  let handleSubmit = () => {
+  let handleSubmit = (e) => {
     set(push(ref(db, 'message')),{
       senderid: data.uid,
       sendername: data.displayName,
@@ -54,6 +58,8 @@ const Message = () => {
       recivername: data.uid == activechat.whoreciverid ? activechat.whosendername : activechat.whorecivername,
       reciveremail: data.uid == activechat.whoreciverid ? activechat.whosenderemail : activechat.whoreciveremail,
       reciverphoto: data.uid == activechat.whoreciverid ? activechat.whosenderphoto : activechat.whoreciverphoto
+    }).then(()=>{
+      setMsgText("")
     })
   }
 
@@ -64,15 +70,49 @@ const Message = () => {
     onValue(messageRef, (snapshot) => {
       let arr = []
       let activeuserid = activechat.whosendid == data.uid ? activechat.whoreciverid : activechat.whosendid
-      console.log(activeuserid);
       snapshot.forEach((item)=>{
         if((item.val().senderid == data.uid && item.val().reciverid == activeuserid) || (item.val().reciverid == data.uid && item.val().senderid == activeuserid)){
-            arr.push({...item.val(),id:item.key})
+          arr.push({...item.val(),id:item.key})
         }
      })
      setAllMessage(arr)
     });
   },[activechat])
+
+
+  let handleKey = (e)=>{
+    if(e.key == "Enter"){
+      set(push(ref(db, 'message')),{
+        senderid: data.uid,
+        sendername: data.displayName,
+        senderemail: data.email,
+        senderphoto: data.photoURL,
+        message : msgText,
+        reciverid: data.uid == activechat.whoreciverid ? activechat.whosendid : activechat.whoreciverid,
+        recivername: data.uid == activechat.whoreciverid ? activechat.whosendername : activechat.whorecivername,
+        reciveremail: data.uid == activechat.whoreciverid ? activechat.whosenderemail : activechat.whoreciveremail,
+        reciverphoto: data.uid == activechat.whoreciverid ? activechat.whosenderphoto : activechat.whoreciverphoto
+      }).then(()=>{
+        setMsgText("")
+      })
+    }
+  }
+
+  let handleEmojiPick = (e)=>{
+    setMsgText(msgText + e.emoji);
+  }
+
+  useEffect(()=>{
+    document.body.addEventListener("click",(e)=>{
+      console.log(e.target);
+      if(emojiref.current.contains(e.target)){
+        setshowemoji(true)
+      }
+      else{
+        setshowemoji(false)
+      }
+    })
+  },[])
   
 
   return (
@@ -125,21 +165,19 @@ const Message = () => {
                 <p>Active now</p>
               </div>
             </div>
-            <div className="main_msg">
-              {allMessage && allMessage.map((item,index)=>(
-                <div key={index} className={`${item.reciverid == data.uid ? "recive_msg" : "send_msg"}`}>
-                  <p>{item.message}</p>
-                </div>
-              ))
+            <ScrollToBottom className="scroll_box" >
+              <div className="main_msg">
+                {allMessage && allMessage.map((item,index)=>(
+                  <div key={index} className={`${item.reciverid == data.uid ? "recive_msg" : "send_msg"}`}>
+                    <p>{item.message}</p>
+                    {/* <div className="msg_side_box">
+                      <Image source={data && data.photoURL} alt="Image Not Found"/>
+                    </div> */}
+                  </div>
+                ))
               }
-               
-               {/* <div className="recive_msg">
-                 <p>hello</p>
-               </div>
-               <div className="send_msg">
-                 <p>kemon aso?</p>
-               </div> */}
-            </div>
+              </div>
+            </ScrollToBottom>
             <div className="msg_footer">
               <div className="all_emoji">
                 <GoPlusCircle />
@@ -147,11 +185,20 @@ const Message = () => {
                 <BsMic />
               </div>
               <div className="input_send">
-                <input onChange={(e)=>setMsgText(e.target.value)} type="text" placeholder='Messagae...'/>
-                <IoSend onClick={handleSubmit} />
+                <input className='input_box' type="text" placeholder='Messagae...' value={msgText} onKeyDown={handleKey} onChange={(e)=>setMsgText(e.target.value)}/>
+                {msgText.length > 0 &&
+                  <IoSend type='submit' onClick={handleSubmit} />
+                }
               </div>
-                <div className="emoji">
-                  <GrEmoji />
+                <div ref={emojiref}>
+                  {showemoji &&
+                    <div className="emoji_wrapper">
+                      <EmojiPicker onEmojiClick={handleEmojiPick}/>
+                  </div>
+                  }
+                  <div className="emoji">
+                    <GrEmoji onClick={()=>setshowemoji(!showemoji)}/>
+                  </div>
                 </div>
             </div>
       </div>
